@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NSS • GEHU Bhimtal — Launch</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/8/8f/National_Service_Scheme_Logo.svg">
+  <meta name="theme-color" content="#b71c1c" />
+
+  <!-- Font (clean, similar to NSS site look) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Base styles -->
+  <style>
+    :root{
+      --red:#b71c1c;      /* light red/blood red */
+      --red-2:#e53935;
+      --dark:#0f0f11;     /* near black */
+      --light:#ffffff;    /* white */
+      --muted:#6b7280;    /* gray-500 */
+      --glass: rgba(255,255,255,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Roboto,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#0b0b0c;color:#eee}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    /* Top scroll progress */
+    .scrollbar{
+      position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--red),#ff6b6b);
+      z-index:2000;box-shadow:0 0 12px rgba(255,90,90,.7);
+      transition:width .1s linear;
+    }
+
+    /* Header */
+    header{
+      position:sticky;top:0;z-index:1000;backdrop-filter:blur(10px);
+      background:rgba(10,10,11,.55);border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;gap:14px;align-items:center}
+    .brand img{height:42px;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+    .brand .title{line-height:1}
+    .brand .title strong{display:block;font-weight:900;letter-spacing:.2px}
+    .brand .title span{font-size:.9rem;color:#cbd5e1}
+
+    .menu{display:flex;gap:20px;align-items:center}
+    .menu a{
+      padding:8px 12px;border-radius:10px;color:#e5e7eb;font-weight:500;opacity:.9;
+      transition:transform .15s ease, background .2s ease, opacity .2s ease;
+    }
+    .menu a:hover{background:var(--glass);transform:translateY(-1px);opacity:1}
+    .cta{background:var(--red);color:white !important}
+    .cta:hover{background:var(--red-2)}
+
+    /* Hero */
+    .hero{
+      position:relative;min-height:78vh;display:grid;place-items:center;overflow:hidden;
+      background:
+        radial-gradient(1000px 500px at -10% -10%, rgba(183,28,28,.35), transparent 55%),
+        radial-gradient(800px 400px at 110% 0%, rgba(229,57,53,.25), transparent 55%),
+        linear-gradient(#0b0b0c, #111316 30%, #0b0b0c 80%);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .hero .decor{
+      position:absolute;inset:0;pointer-events:none;opacity:.35;
+      background:
+        radial-gradient(120px 120px at 15% 70%, rgba(255,255,255,.05), transparent 60%),
+        radial-gradient(200px 200px at 70% 25%, rgba(255,255,255,.04), transparent 60%);
+      animation:float 12s ease-in-out infinite;
+    }
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+    .hero .content{position:relative;display:grid;gap:18px;text-align:center;padding:90px 0 70px}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;margin:0 auto;padding:6px 10px;
+      border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.04);
+      font-size:.85rem;color:#e2e8f0
+    }
+    .badge svg{height:16px;width:16px}
+    .hero h1{font-size:clamp(32px,6vw,56px);line-height:1.05;margin:4px 0 0;font-weight:900;letter-spacing:.2px}
+    .hero p{max-width:820px;margin:0 auto;color:#cbd5e1;font-size:clamp(15px,1.6vw,18px)}
+    .hero .actions{display:flex;gap:12px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+    .btn{
+      padding:12px 18px;border-radius:14px;border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);color:#f8fafc;font-weight:600;
+      transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+    .btn.primary{background:var(--red);border-color:transparent}
+    .btn.primary:hover{background:var(--red-2)}
+    .video-chip{display:flex;align-items:center;gap:10px}
+
+    /* Stats / Dashboard */
+    .stats{padding:60px 0;background:linear-gradient(180deg,#0b0b0c,#121317)}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    @media(max-width:980px){.cards{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.cards{grid-template-columns:1fr}}
+    .card{
+      position:relative;padding:22px;border-radius:18px;background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);overflow:hidden;isolation:isolate;
+      transition:transform .18s ease, background .25s ease, border .25s ease;
+    }
+    .card:hover{transform:translateY(-4px);background:rgba(255,255,255,.08)}
+    .card h3{margin:6px 0;color:#f3f4f6;font-size:1.05rem;font-weight:700}
+    .big{font-size:38px;font-weight:900;letter-spacing:.5px}
+    .muted{color:#b7c0ce;font-size:.92rem}
+
+    .meter{height:8px;background:rgba(255,255,255,.08);border-radius:999px;margin-top:14px;overflow:hidden}
+    .meter > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),#ff8787);transition:width 2s ease}
+
+    /* About */
+    section{scroll-margin-top:90px}
+    .two{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;align-items:center}
+    @media(max-width:900px){.two{grid-template-columns:1fr}}
+    .panel{
+      padding:22px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08)
+    }
+    .panel h2{margin:0 0 10px;font-size:1.8rem;color:#fff}
+    .panel p{color:#d1d5db;line-height:1.8}
+
+    /* Gallery */
+    .masonry{columns:3 280px;column-gap:14px}
+    .masonry img{width:100%;margin:0 0 14px;border-radius:14px;break-inside:avoid;opacity:.96;transition:transform .2s ease, opacity .2s ease}
+    .masonry img:hover{transform:scale(1.015);opacity:1}
+    .gal-note{color:#94a3b8;font-size:.9rem;margin-top:6px}
+
+    /* Contact / footer */
+    .contact{display:grid;grid-template-columns:1fr .9fr;gap:22px}
+    @media(max-width:900px){.contact{grid-template-columns:1fr}}
+    input, select, textarea{
+      width:100%;padding:12px 14px;margin-top:10px;border-radius:12px;border:1px solid rgba(255,255,255,.14);
+      background:#0e0f12;color:#e5e7eb
+    }
+    label{font-weight:600;color:#e5e7eb}
+    .footer{margin-top:50px;padding:22px 0;border-top:1px solid rgba(255,255,255,.08);color:#b7c0ce}
+
+    /* Animations on reveal */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease}
+    .reveal.show{opacity:1;transform:none}
+    .count { opacity:0; transition:opacity .6s ease }
+    .count.show { opacity:1 }
+    .rise { transform:translateY(6px); opacity:.85; transition:transform .8s ease, opacity .8s ease }
+    .rise.show { transform:none; opacity:1 }
+
+    /* Floating CTA */
+    .float-cta{
+      position:fixed;right:18px;bottom:18px;z-index:999;
+      background:linear-gradient(135deg,var(--red),#ff6b6b);color:white;border:none;
+      border-radius:999px;padding:14px 18px;font-weight:800;letter-spacing:.4px;
+      box-shadow:0 16px 40px rgba(183,28,28,.35);cursor:pointer
+    }
+    .float-cta:hover{transform:translateY(-2px)}
+
+    /* Video modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;padding:20px;z-index:1200}
+    .modal.open{display:flex}
+    .modal-inner{max-width:960px;width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.12)}
+    .modal .close{position:absolute;top:18px;right:18px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:white;border-radius:10px;padding:8px 12px;font-weight:700;cursor:pointer}
+  </style>
+</head>
+<body>
+
+  <!-- top scroll progress -->
+  <div class="scrollbar" id="scrollbar"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <!-- NSS logo (Wikimedia) with fallback to official PNG -->
+        <img id="nssLogo"
+             src="https://upload.wikimedia.org/wikipedia/commons/8/8f/National_Service_Scheme_Logo.svg"
+             alt="NSS Logo"
+             onerror="this.onerror=null;this.src='https://nss.gov.in/sites/all/themes/youthaffair/logo.png'">
+        <div class="title">
+          <strong>NSS • GEHU Bhimtal</strong>
+          <span>Not Me, But You</span>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="#about">About</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <!-- College logo (given) with fallback -->
+        <a class="cta" href="#register">Join NSS</a>
+      </nav>
+      <img
+        src="https://gehu.ac.in/bhimtal/wp-content/uploads/2025/04/bhimtal-logo.webp"
+        alt="GEHU Bhimtal"
+        onerror="this.onerror=null;this.src='https://www.gehu.ac.in/content/dam/gehu/logos/GEHU-logo.png'">
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="decor"></div>
+    <div class="content wrap">
+      <div class="badge rise">NATIONAL SERVICE SCHEME • Ministry of Youth Affairs & Sports</div>
+      <h1 class="rise" style="transition-delay:.05s">Be the change on campus.<br>Serve the community beyond it.</h1>
+      <p class="rise" style="transition-delay:.12s">
+        NSS GEHU Bhimtal is a community of student volunteers building leadership through <em>real</em> impact —
+        cleanliness drives, blood donation, health camps, digital literacy, environmental action and more.
+      </p>
+      <div class="actions rise" style="transition-delay:.2s">
+        <button class="btn primary video-chip" id="watchIntro">
+          <!-- play icon -->
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          Watch 40s Intro
+        </button>
+        <a href="#register" class="btn">Apply to Volunteer</a>
+        <a href="#dashboard" class="btn">See Impact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="stats">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;margin-bottom:18px">
+        <h2 style="margin:0 0 6px;font-size:2rem;font-weight:900">Impact Dashboard</h2>
+        <p class="muted">Counts animate when visible. Replace targets below with your live numbers.</p>
+      </div>
+      <div class="cards">
+        <!-- Volunteers -->
+        <div class="card reveal">
+          <div class="muted">Registered Volunteers</div>
+          <div class="big count" data-target="320">0</div>
+          <h3>Active this semester</h3>
+          <div class="meter"><span style="--w:72%"></span></div>
+        </div>
+        <!-- Operations -->
+        <div class="card reveal">
+          <div class="muted">Operations / Drives</div>
+          <div class="big count" data-target="48">0</div>
+          <h3>Completed activities</h3>
+          <div class="meter"><span style="--w:64%"></span></div>
+        </div>
+        <!-- Programs -->
+        <div class="card reveal">
+          <div class="muted">Programs</div>
+          <div class="big count" data-target="12">0</div>
+          <h3>Flagship initiatives</h3>
+          <div class="meter"><span style="--w:42%"></span></div>
+        </div>
+        <!-- Service hours -->
+        <div class="card reveal">
+          <div class="muted">Service Hours</div>
+          <div class="big count" data-target="1500">0</div>
+          <h3>Logged by NSS GEHU</h3>
+          <div class="meter"><span style="--w:85%"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT (with official objectives) -->
+  <section id="about" class="wrap" style="padding:56px 0">
+    <div class="two">
+      <div class="panel reveal">
+        <h2>What is NSS?</h2>
+        <p>
+          The National Service Scheme (NSS) is a Government of India programme under the Ministry of Youth Affairs & Sports.
+          It develops student youth through community service with the motto <strong>“Not Me, But You.”</strong>
+        </p>
+        <p style="margin-top:12px">
+          Key objectives include: understanding the community and oneself, identifying needs & problems,
+          involving students in problem-solving, developing leadership & democratic attitudes, and gaining skills in mobilising
+          community participation. (Source: official NSS objectives)
+        </p>
+        <div class="gal-note">Source refs: NSS intro and objectives pages.</div>
+      </div>
+      <div class="panel reveal">
+        <h2>Our Focus @ GEHU Bhimtal</h2>
+        <ul style="margin:10px 0 0;padding-left:18px;color:#d1d5db;line-height:1.9">
+          <li>Cleanliness &amp; environment (plantation, plastic-free drives)</li>
+          <li>Health (blood donation, basic check-ups, first-aid awareness)</li>
+          <li>Digital literacy for nearby communities</li>
+          <li>Road safety &amp; civic awareness campaigns</li>
+          <li>Special camps &amp; collaborative events with district admins</li>
+        </ul>
+        <div class="meter" style="margin-top:18px"><span style="width:75%"></span></div>
+        <div class="muted" style="margin-top:8px">Growing every month with new partners & volunteers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY (reliable sources) -->
+  <section id="gallery" class="wrap" style="padding:10px 0 56px">
+    <div class="reveal" style="text-align:center;margin:10px 0 18px">
+      <h2 style="margin:0 0 6px;font-size:2rem;font-weight:900">Photo Gallery</h2>
+      <p class="muted">Highlights from NSS activities around India (publicly hosted images).</p>
+    </div>
+
+    <div class="masonry">
+      <!-- Wikimedia & NSS site images; each has a fallback -->
+      <img alt="NSS Convention"
+           src="https://nss.gov.in/sites/default/files/styles/album_image/public/_MG_6545-min.JPG?itok=Sa8xVQdd"
+           onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/NSS_5.JPG'">
+      <img alt="NSS Event"
+           src="https://nss.gov.in/sites/default/files/styles/album_image/public/9_15.jpg?itok=ysUZj-cr"
+           onerror="this.onerror=null;this.src='https://commons.wikimedia.org/wiki/Special:FilePath/National_Service_Schemes(NSS).jpg'">
+      <img alt="Wikipedia Workshop"
+           src="https://commons.wikimedia.org/wiki/Special:FilePath/NSS_volunteers_of_attending_Wikipedia_workshop.JPG">
+      <img alt="Digital literacy class"
+           src="https://commons.wikimedia.org/wiki/Special:FilePath/Digital_literacy_class_in_NSS_camp_2024.jpg">
+      <img alt="Public information rally"
+           src="https://commons.wikimedia.org/wiki/Special:FilePath/A_view_of_rally_by_school_students,_National_Service_Scheme_volunteers_and_Anganwadi_workers_in_connection_with_Public_Information_Campaign,_organised_by_the_PIB_Thiruvananthapuram,_in_Nedumangad,_Thiruvananthapuram.jpg">
+      <img alt="Village visit"
+           src="https://commons.wikimedia.org/wiki/Special:FilePath/NSS_Camp_explore_village_visit.jpg">
+    </div>
+    <div class="gal-note">
+      Image sources: NSS official gallery & Wikimedia Commons (CC-BY/PD content).
+    </div>
+  </section>
+
+  <!-- REGISTER / CONTACT -->
+  <section id="contact" class="wrap" style="padding:10px 0 40px">
+    <div class="reveal" style="text-align:center;margin-bottom:18px">
+      <h2 style="margin:0 0 6px;font-size:2rem;font-weight:900">Contact & Registration</h2>
+      <p class="muted">Quick interest form (local only for now). Replace later with Google Form / Sheet integration.</p>
+    </div>
+
+    <div class="contact">
+      <form id="register" class="panel reveal">
+        <label>Full Name</label>
+        <input required placeholder="Your name" />
+        <label style="margin-top:8px">Email</label>
+        <input type="email" required value="aryantiwari0724@gmail.com" />
+        <label style="margin-top:8px">Year / Branch</label>
+        <select>
+          <option>1st Year • CSE (AI/ML)</option>
+          <option>1st Year • Other</option>
+          <option>2nd Year</option>
+          <option>3rd Year</option>
+          <option>4th Year</option>
+          <option>PG / Other</option>
+        </select>
+        <label style="margin-top:8px">Why do you want to join?</label>
+        <textarea rows="4" placeholder="One line is enough to start."></textarea>
+        <button class="btn primary" type="submit" style="margin-top:14px">Submit Interest</button>
+        <div id="formMsg" class="muted" style="margin-top:10px;display:none">Thanks! We’ll get back to you within 48 hours.</div>
+      </form>
+
+      <div class="panel reveal">
+        <h2>GEHU Bhimtal • NSS Unit</h2>
+        <p class="muted" style="line-height:1.9">
+          Address: Graphic Era Hill University, SatTal Road, Bhimtal, Nagri Gaon, Uttarakhand — 263136<br>
+          Email: <a href="mailto:aryantiwari0724@gmail.com" style="color:#fff;text-decoration:underline">aryantiwari0724@gmail.com</a><br>
+          Office hours: Mon–Fri • 10:00–17:00
+        </p>
+        <div class="meter" style="margin-top:14px"><span style="width:55%"></span></div>
+        <p class="muted" style="margin-top:10px">Follow our upcoming events and special camps. Volunteers get priority access to limited-seat drives.</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="wrap" style="display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap">
+        <div>© <span id="year"></span> NSS • GEHU Bhimtal. “Not Me, But You.”</div>
+        <div class="muted">Built for awareness & onboarding.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating CTA -->
+  <button class="float-cta" onclick="document.querySelector('#register').scrollIntoView({behavior:'smooth'})">
+    Join NSS
+  </button>
+
+  <!-- Video Modal -->
+  <div class="modal" id="videoModal" aria-hidden="true">
+    <button class="close" id="closeVideo">Close ✕</button>
+    <div class="modal-inner" id="videoBox">
+      <!-- YouTube embed injected by JS -->
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Scroll progress bar
+    const bar = document.getElementById('scrollbar');
+    const updateBar = () => {
+      const s = window.scrollY, h = document.body.scrollHeight - innerHeight;
+      bar.style.width = (h ? (s / h * 100) : 0) + '%';
+    };
+    updateBar(); addEventListener('scroll', updateBar);
+
+    // Reveal on scroll (sections/cards)
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('show');
+          if(e.target.classList.contains('meter')){
+            const span = e.target.querySelector('span');
+            if(span && span.style.width === '') span.style.width = span.style.getPropertyValue('--w') || '80%';
+          }
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:.16});
+
+    document.querySelectorAll('.reveal, .rise, .meter').forEach(el=>io.observe(el));
+
+    // Animated counters
+    const counters = document.querySelectorAll('.count');
+    const ioc = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting) return;
+        const el = e.target;
+        const target = +el.getAttribute('data-target') || 0;
+        const dur = 1400; // ms
+        const start = performance.now();
+        const step = (t)=>{
+          const p = Math.min(1,(t-start)/dur);
+          const eased = p<.5 ? 4*p*p*p : 1 - Math.pow(-2*p+2,3)/2; // easeInOutCubic
+          el.textContent = Math.floor(eased * target).toLocaleString();
+          if(p<1) requestAnimationFrame(step);
+        };
+        el.classList.add('show');
+        requestAnimationFrame(step);
+        ioc.unobserve(el);
+      });
+    },{threshold:.4});
+    counters.forEach(c=>ioc.observe(c));
+
+    // Fill meters when cards show
+    document.querySelectorAll('.card .meter span').forEach((bar,i)=>{
+      // set width from CSS var if provided
+      const parent = bar.parentElement;
+      bar.style.width = bar.style.getPropertyValue('--w') || (60 + i*8) + '%';
+    });
+
+    // Register form (demo only)
+    const form = document.getElementById('register');
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      document.getElementById('formMsg').style.display='block';
+      form.reset();
+    });
+
+    // Video modal
+    const modal = document.getElementById('videoModal');
+    const box = document.getElementById('videoBox');
+    const openVideo = () => {
+      modal.classList.add('open');
+      // embed with autoplay, mute, loop
+      const id = 'QseelsLZDKo';
+      box.innerHTML =
+        `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&loop=1&playlist=${id}" title="NSS Intro" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+    };
+    const closeVideo = () => {
+      modal.classList.remove('open');
+      box.innerHTML = '';
+    };
+    document.getElementById('watchIntro').addEventListener('click', openVideo);
+    document.getElementById('closeVideo').addEventListener('click', closeVideo);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeVideo(); });
+
+    // Replace broken images gracefully (if any)
+    document.querySelectorAll('img').forEach(img=>{
+      img.addEventListener('error', ()=>{
+        // generic fallback: NSS logo as placeholder
+        img.src = 'https://upload.wikimedia.org/wikipedia/commons/8/8f/National_Service_Scheme_Logo.svg';
+      }, {once:true});
+    });
+  </script>
+
+  <!-- Minimal progressive loader (no logo) -->
+  <script>
+    // Quick visual: grow the top bar on first paint
+    let w=0; const id=setInterval(()=>{w+=5; if(w>40) clearInterval(id); document.getElementById('scrollbar').style.width=w+'%';}, 16);
+    window.addEventListener('load', ()=>{ document.getElementById('scrollbar').style.width='100%'; setTimeout(()=>{updateBar()},150) });
+  </script>
+</body>
+</html>
